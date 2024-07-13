@@ -1,4 +1,6 @@
 import tkinter as tk
+from tkinter import ttk
+from models.pelicula_dao import crear_tabla, borrar_tabla  # Cambio de importación relativa a absoluta
 
 
 def barra_menu(root):
@@ -8,8 +10,8 @@ def barra_menu(root):
     menu_inicio = tk.Menu(barra_men, tearoff=0)
     barra_men.add_cascade(label='Inicio', menu=menu_inicio)
 
-    menu_inicio.add_command(label='Crear Registro en DB')
-    menu_inicio.add_command(label='Eliminar Registro en DB')
+    menu_inicio.add_command(label='Crear Registro en DB', command=crear_tabla)
+    menu_inicio.add_command(label='Eliminar Registro en DB', command=borrar_tabla)
     menu_inicio.add_command(label='Salir', command=root.destroy)
 
     barra_men.add_cascade(label='Consultas')
@@ -19,7 +21,10 @@ def barra_menu(root):
 
 class Frame(tk.Frame):
     def __init__(self, root=None):
-        super().__init__()
+        super().__init__(root)
+        self.button_editar = None
+        self.button_eliminar = None
+        self.tabla = None
         self.mi_generacion = None
         self.mi_duracion = None
         self.mi_nombre = None
@@ -36,6 +41,7 @@ class Frame(tk.Frame):
         self.pack()
         self.config(width=480, height=320)
         self.campo_pelicula()
+        self.tabla_peliculas()
 
     def campo_pelicula(self):
         self.label_nombre = tk.Label(self, text='Nombre:')
@@ -68,17 +74,17 @@ class Frame(tk.Frame):
         self.button_nuevo = tk.Button(self, text="Nuevo", command=self.habilitar_campos)
         self.button_nuevo.config(width=20, font=('Arial', 12), fg='#DAD5D6', bg='#158645', cursor='hand2',
                                  activebackground='#35BD6F')
-        self.button_nuevo.grid(row=4, column=0, padx=10, pady=10)
+        self.button_nuevo.grid(row=3, column=0, padx=10, pady=10)
 
-        self.button_guardar = tk.Button(self, text="Guardar",command=self.guardar_datos)
+        self.button_guardar = tk.Button(self, text="Guardar", command=self.guardar_datos)
         self.button_guardar.config(width=20, font=('Arial', 12), fg='#DAD5D6', bg='#1658A2', cursor='hand2',
                                    activebackground='#3586DF')
-        self.button_guardar.grid(row=4, column=1, padx=10, pady=10)
+        self.button_guardar.grid(row=3, column=1, padx=10, pady=10)
 
         self.button_cancelar = tk.Button(self, text="Cancelar", command=self.deshabilitar_campos)
         self.button_cancelar.config(width=20, font=('Arial', 12), fg='#DAD5D6', bg='#BD152E', cursor='hand2',
                                     activebackground='#E15370')
-        self.button_cancelar.grid(row=4, column=2, padx=10, pady=10)
+        self.button_cancelar.grid(row=3, column=2, padx=10, pady=10)
 
         self.deshabilitar_campos()
 
@@ -106,3 +112,24 @@ class Frame(tk.Frame):
 
     def guardar_datos(self):
         self.deshabilitar_campos()
+
+    def tabla_peliculas(self):
+        self.tabla = ttk.Treeview(self, columns=('Nombre', 'Duración', 'Genero'))
+        self.tabla.grid(row=4, column=0, columnspan=3, padx=10, pady=10)
+
+        self.tabla.heading('#0', text='ID')
+        self.tabla.heading('#1', text='NOMBRE')
+        self.tabla.heading('#2', text='DURACIÓN')
+        self.tabla.heading('#3', text='GENERO')
+
+        self.tabla.insert('', 0, text='1', values=('Los vengadores', '2.34', 'Acción'))
+
+        self.button_editar = tk.Button(self, text="Editar")
+        self.button_editar.config(width=20, font=('Arial', 12), fg='#DAD5D6', bg='#158645', cursor='hand2',
+                                  activebackground='#35BD6F')
+        self.button_editar.grid(row=5, column=0, padx=10, pady=10)
+
+        self.button_eliminar = tk.Button(self, text="Eliminar")
+        self.button_eliminar.config(width=20, font=('Arial', 12), fg='#DAD5D6', bg='#BD152E', cursor='hand2',
+                                    activebackground='#E15370')
+        self.button_eliminar.grid(row=5, column=1, padx=10, pady=10)
