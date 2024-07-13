@@ -42,6 +42,7 @@
       <recent name="E:\Repositorio\Python-Tkinter\Catalogo\client" />
     </key>
   </component>
+<<<<<<< Updated upstream
   <component name="RunManager" selected="Python.gui_app">
     <configuration name="Catalogo_inicial" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Python-Tkinter" />
@@ -94,6 +95,8 @@
       </list>
     </recent_temporary>
   </component>
+=======
+>>>>>>> Stashed changes
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
