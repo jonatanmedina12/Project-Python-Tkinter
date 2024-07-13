@@ -1,9 +1,9 @@
 import tkinter as tk
 from tkinter import ttk
+from ttkthemes import ThemedTk
 from models.pelicula_dao import crear_tabla, borrar_tabla, pelicula_tabla, guardar_datos, listar_datos, editar, eliminar
 from tkinter import messagebox
 
-from ttkthemes import ThemedStyle
 
 def barra_menu(root):
     barra_men = tk.Menu(root)
@@ -49,9 +49,11 @@ class Frame(tk.Frame):
         self.pack()
         self.config(width=800, height=600)
 
-        # Aplicar el estilo
-        style = ThemedStyle(root)
-        style.set_theme("arc")  # Puedes probar otros temas como "plastik", "radiance", "clearlooks"
+        self.style = ttk.Style()
+        self.style.theme_use('clam')  # Use a modern theme
+        self.style.configure('TButton', font=('Helvetica', 10), padding=10)
+        self.style.configure('TLabel', font=('Helvetica', 10))
+        self.style.configure('TEntry', font=('Helvetica', 10), padding=5)
 
         self.campo_pelicula()
         self.tabla_peliculas()
@@ -179,3 +181,5 @@ class Frame(tk.Frame):
         except Exception as e:
             messagebox.showinfo("Sin datos seleccionados", "Sin datos seleccionados")
             print(e)
+
+
