@@ -1,10 +1,7 @@
 import tkinter as tk
-<<<<<<< Updated upstream
-=======
 from tkinter import ttk
 from models.pelicula_dao import crear_tabla, borrar_tabla, pelicula_tabla, guardar_datos, listar_datos, editar, eliminar
 from tkinter import messagebox
->>>>>>> Stashed changes
 
 from ttkthemes import ThemedStyle
 
@@ -15,8 +12,8 @@ def barra_menu(root):
     menu_inicio = tk.Menu(barra_men, tearoff=0)
     barra_men.add_cascade(label='Inicio', menu=menu_inicio)
 
-    menu_inicio.add_command(label='Crear Registro en DB')
-    menu_inicio.add_command(label='Eliminar Registro en DB')
+    menu_inicio.add_command(label='Crear Registro en DB', command=crear_tabla)
+    menu_inicio.add_command(label='Eliminar Registro en DB', command=borrar_tabla)
     menu_inicio.add_command(label='Salir', command=root.destroy)
 
     barra_men.add_cascade(label='Consultas')
@@ -26,9 +23,6 @@ def barra_menu(root):
 
 class Frame(tk.Frame):
     def __init__(self, root=None):
-<<<<<<< Updated upstream
-        super().__init__()
-=======
         super().__init__(root)
         self.genero_pelicula = None
         self.duracion_pelicula = None
@@ -39,7 +33,6 @@ class Frame(tk.Frame):
         self.button_editar = None
         self.button_eliminar = None
         self.tabla = None
->>>>>>> Stashed changes
         self.mi_generacion = None
         self.mi_duracion = None
         self.mi_nombre = None
@@ -61,6 +54,7 @@ class Frame(tk.Frame):
         style.set_theme("arc")  # Puedes probar otros temas como "plastik", "radiance", "clearlooks"
 
         self.campo_pelicula()
+        self.tabla_peliculas()
 
     def campo_pelicula(self):
         self.label_nombre = ttk.Label(self, text='Nombre:')
@@ -87,22 +81,6 @@ class Frame(tk.Frame):
         self.entry_generacion.config(width=50, state='disabled')
         self.entry_generacion.grid(row=2, column=1, padx=10, pady=10, columnspan=2)
 
-<<<<<<< Updated upstream
-        self.button_nuevo = tk.Button(self, text="Nuevo", command=self.habilitar_campos)
-        self.button_nuevo.config(width=20, font=('Arial', 12), fg='#DAD5D6', bg='#158645', cursor='hand2',
-                                 activebackground='#35BD6F')
-        self.button_nuevo.grid(row=4, column=0, padx=10, pady=10)
-
-        self.button_guardar = tk.Button(self, text="Guardar",command=self.guardar_datos)
-        self.button_guardar.config(width=20, font=('Arial', 12), fg='#DAD5D6', bg='#1658A2', cursor='hand2',
-                                   activebackground='#3586DF')
-        self.button_guardar.grid(row=4, column=1, padx=10, pady=10)
-
-        self.button_cancelar = tk.Button(self, text="Cancelar", command=self.deshabilitar_campos)
-        self.button_cancelar.config(width=20, font=('Arial', 12), fg='#DAD5D6', bg='#BD152E', cursor='hand2',
-                                    activebackground='#E15370')
-        self.button_cancelar.grid(row=4, column=2, padx=10, pady=10)
-=======
         self.button_nuevo = ttk.Button(self, text="Nuevo", command=self.habilitar_campos)
         self.button_nuevo.grid(row=3, column=0, padx=10, pady=10)
 
@@ -111,7 +89,6 @@ class Frame(tk.Frame):
 
         self.button_cancelar = ttk.Button(self, text="Cancelar", command=self.deshabilitar_campos)
         self.button_cancelar.grid(row=3, column=2, padx=10, pady=10)
->>>>>>> Stashed changes
 
         self.deshabilitar_campos()
 
@@ -152,8 +129,6 @@ class Frame(tk.Frame):
 
         self.tabla_peliculas()
         self.deshabilitar_campos()
-<<<<<<< Updated upstream
-=======
 
     def tabla_peliculas(self):
         self.lista_peliculas = listar_datos()
@@ -204,4 +179,3 @@ class Frame(tk.Frame):
         except Exception as e:
             messagebox.showinfo("Sin datos seleccionados", "Sin datos seleccionados")
             print(e)
->>>>>>> Stashed changes
